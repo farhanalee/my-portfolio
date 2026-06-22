@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farhan Ali Mangi — IT Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#060d1a;--navy2:#0a1528;--navy3:#0f1e38;
+  --accent:#2563eb;--accent2:#60a5fa;--cyan:#22d3ee;--green:#10b981;
+  --text:#e2eaff;--muted:#6a85b0;--border:rgba(96,165,250,0.13);
+  --card:rgba(10,21,40,0.93);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--navy);color:var(--text);overflow-x:hidden;min-height:100vh}
+
+/* ── NETWORK CANVAS BG ── */
+#netCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+  background:rgba(6,13,26,0.88);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-size:1rem;font-weight:800;color:var(--accent2);letter-spacing:.06em;font-family:'Courier New',monospace}
+.logo span{color:var(--cyan)}
+.nav-tabs{display:flex;gap:4px;align-items:center}
+.nav-btn{
+  padding:7px 15px;font-size:13px;font-weight:600;
+  color:var(--muted);border:none;background:none;cursor:pointer;
+  border-radius:7px;transition:all .2s;font-family:inherit;letter-spacing:.01em;
+  position:relative;
+}
+.nav-btn::after{content:'';position:absolute;bottom:4px;left:50%;right:50%;height:2px;background:var(--accent2);border-radius:2px;transition:all .25s}
+.nav-btn:hover{color:var(--text)}
+.nav-btn.active{color:var(--accent2);background:rgba(37,99,235,0.12)}
+.nav-btn.active::after{left:20%;right:20%}
+
+/* ── SECTIONS ── */
+.page{display:block;min-height:100vh;padding:70px 0 60px;position:relative;z-index:1;scroll-margin-top:72px}
+.page.active{display:block}
+.wrap{max-width:880px;margin:0 auto;padding:0 1.8rem}
+
+/* ─── HERO ─── */
+#p-home{display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:70px 1.8rem 60px;min-height:100vh}
+.avail-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.3);
+  color:var(--green);font-size:12px;font-weight:700;
+  padding:5px 16px;border-radius:20px;margin-bottom:1.5rem;
+  letter-spacing:.04em;text-transform:uppercase;
+  animation:fadeUp .5s ease both;
+}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+
+/* Photo ring */
+.photo-wrap{position:relative;width:140px;height:140px;margin:0 auto 2rem;animation:fadeUp .5s ease both .1s}
+.ring-outer{position:absolute;inset:-7px;border-radius:50%;animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo-inner{width:140px;height:140px;border-radius:50%;overflow:hidden;border:4px solid var(--navy);position:relative;z-index:2;background:var(--navy3)}
+.photo-inner img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+
+.hero-name{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:900;line-height:1.05;margin-bottom:.7rem;background:linear-gradient(130deg,#ddeeff 25%,var(--accent2) 70%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp .5s ease both .2s}
+.hero-role{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--muted);margin-bottom:1.3rem;animation:fadeUp .5s ease both .3s}
+.hero-role b{color:var(--accent2)}
+.hero-bio{max-width:560px;margin:0 auto 2rem;font-size:14.5px;line-height:1.78;color:var(--muted);animation:fadeUp .5s ease both .35s}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:3rem;animation:fadeUp .5s ease both .4s}
+.btn-blue{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:9px;background:var(--accent);color:#fff;font-size:13.5px;font-weight:700;border:none;cursor:pointer;transition:.2s;font-family:inherit}
+.btn-blue:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.35)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:13.5px;font-weight:700;background:transparent;cursor:pointer;transition:.2s;font-family:inherit}
+.btn-ghost:hover{border-color:var(--accent2);color:var(--accent2)}
+.stats-row{display:flex;gap:2.5rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .5s ease both .5s}
+.stat{text-align:center}
+.stat-n{font-size:2.1rem;font-weight:900;color:var(--accent2);font-variant-numeric:tabular-nums;line-height:1}
+.stat-l{font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:600;letter-spacing:.02em}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── SECTION HEADER ─── */
+.eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase;margin-bottom:.4rem}
+.s-title{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:900;margin-bottom:.5rem;line-height:1.15}
+.s-sub{font-size:14px;color:var(--muted);margin-bottom:2.2rem;line-height:1.7}
+.hr{height:1px;background:var(--border);margin:2.5rem 0}
+
+/* ─── SKILL CARDS ─── */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:13px}
+.sk{
+  background:var(--card);border:1px solid var(--border);border-radius:13px;
+  padding:1.2rem;transition:.25s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.sk::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(37,99,235,.08),transparent 70%);opacity:0;transition:.3s}
+.sk:hover{border-color:rgba(96,165,250,.4);transform:translateY(-3px)}
+.sk:hover::before{opacity:1}
+.sk:hover .si svg{transform:scale(1.18) rotate(-6deg)}
+.si{width:40px;height:40px;border-radius:10px;background:rgba(37,99,235,.11);display:flex;align-items:center;justify-content:center;margin-bottom:.85rem;transition:.3s}
+.si svg{width:21px;height:21px;stroke:var(--accent2);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;transition:.35s}
+.sk-n{font-size:13px;font-weight:800;margin-bottom:.55rem;color:var(--text)}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:.45rem}
+.tag{font-size:10px;padding:2px 8px;border-radius:5px;background:rgba(37,99,235,.1);color:var(--accent2);border:1px solid rgba(96,165,250,.18);font-weight:700}
+
+/* ─── TIMELINE ─── */
+.tl{position:relative;padding-left:1.9rem}
+.tl::before{content:'';position:absolute;left:6px;top:10px;bottom:10px;width:1.5px;background:linear-gradient(to bottom,var(--accent2) 0%,var(--cyan) 60%,transparent 100%)}
+.ti{position:relative;margin-bottom:1.9rem}
+.td{position:absolute;left:-1.9rem;top:6px;width:13px;height:13px;border-radius:50%;background:var(--accent2);border:2.5px solid var(--navy);box-shadow:0 0 10px rgba(96,165,250,.55)}
+.tc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:1.4rem;transition:.2s}
+.tc:hover{border-color:rgba(96,165,250,.3)}
+.th2{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem}
+.tr{font-size:15.5px;font-weight:800}
+.tp{font-size:10.5px;padding:3px 11px;border-radius:20px;background:rgba(37,99,235,.12);color:var(--accent2);border:1px solid rgba(96,165,250,.2);font-weight:700;white-space:nowrap}
+.tco{font-size:12.5px;color:var(--accent2);font-weight:700;margin-bottom:.8rem}
+.tul{list-style:none}
+.tul li{font-size:13px;color:var(--muted);line-height:1.68;padding:2px 0 2px 15px;position:relative}
+.tul li::before{content:'›';position:absolute;left:0;color:var(--accent2);font-weight:900;font-size:15px}
+.ach{display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22);color:var(--green);font-size:11px;padding:3px 11px;border-radius:7px;margin:6px 4px 0 0;font-weight:700}
+
+/* ─── PROJECTS ─── */
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:15px}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:1.35rem;transition:.28s;position:relative;overflow:hidden}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2.5px;background:linear-gradient(to right,var(--accent),var(--cyan));transform:scaleX(0);transform-origin:left;transition:.35s}
+.pc:hover{transform:translateY(-4px);border-color:rgba(96,165,250,.38)}
+.pc:hover::after{transform:scaleX(1)}
+.pc:hover .pi svg{transform:scale(1.22) rotate(8deg)}
+.pi{width:42px;height:42px;border-radius:11px;background:rgba(37,99,235,.12);display:flex;align-items:center;justify-content:center;margin-bottom:.95rem;transition:.3s}
+.pi svg{width:22px;height:22px;stroke:var(--accent2);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;transition:.38s}
+.pn{font-size:14.5px;font-weight:800;margin-bottom:.4rem}
+.pd{font-size:13px;color:var(--muted);line-height:1.67;margin-bottom:.9rem}
+.pt{display:flex;flex-wrap:wrap;gap:4px}
+.pt span{font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(96,140,220,.07);color:var(--muted);border:1px solid var(--border);font-weight:600}
+
+/* ─── CCTV SECTION ─── */
+.cctv-hero{
+  background:linear-gradient(135deg,rgba(34,211,238,.06),rgba(37,99,235,.06));
+  border:1px solid rgba(34,211,238,.22);border-radius:14px;
+  padding:1.6rem;margin-bottom:1.8rem;
+}
+.cctv-hero h3{font-size:15.5px;font-weight:800;color:var(--cyan);margin-bottom:.5rem;display:flex;align-items:center;gap:8px}
+.cctv-hero p{font-size:13.5px;color:var(--muted);line-height:1.7}
+.cctv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin-bottom:1.5rem}
+.cc2{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;transition:.25s}
+.cc2:hover{border-color:rgba(34,211,238,.3);transform:translateY(-2px)}
+.cc2 svg{width:22px;height:22px;stroke:var(--cyan);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-bottom:.6rem}
+.cc2 h4{font-size:12.5px;font-weight:800;color:var(--text);margin-bottom:.3rem}
+.cc2 p{font-size:11.5px;color:var(--muted);line-height:1.62}
+
+/* floor plan */
+.fp{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem;margin-bottom:1.8rem}
+.fp h3{font-size:13.5px;font-weight:800;color:var(--accent2);margin-bottom:1rem}
+
+/* ─── CONTACT ─── */
+.av-bar{display:flex;align-items:center;gap:10px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:11px;padding:1rem 1.3rem;margin-bottom:1.8rem}
+.av-bar p{font-size:13.5px;color:var(--muted)}.av-bar p b{color:var(--text)}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.ccard{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:1.25rem;display:flex;align-items:center;gap:1rem;transition:.25s}
+.ccard:hover{border-color:rgba(96,165,250,.38);transform:translateY(-2px)}
+.ccard:hover .ci svg{transform:scale(1.2)}
+.ci{width:44px;height:44px;border-radius:11px;background:rgba(37,99,235,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.3s}
+.ci svg{width:22px;height:22px;stroke:var(--accent2);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;transition:.3s}
+.cl{font-size:10.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:3px}
+.cv2{font-size:13.5px;font-weight:700;color:var(--text)}
+.cv2 a{color:var(--accent2);text-decoration:none}
+.cv2 a:hover{text-decoration:underline}
+
+@media(max-width:580px){
+  nav{height:auto;min-height:58px;padding:.65rem 1rem;align-items:flex-start;gap:.45rem;flex-wrap:wrap}
+  .logo{width:100%;font-size:.95rem}
+  .nav-tabs{width:100%;overflow-x:auto;gap:6px;padding-bottom:3px;scrollbar-width:none;-ms-overflow-style:none}
+  .nav-tabs::-webkit-scrollbar{display:none}
+  .nav-btn{flex:0 0 auto;padding:7px 11px;font-size:12px;white-space:nowrap}
+  .page{padding-top:112px;scroll-margin-top:112px}
+  #p-home{padding-top:118px}
+  .cg{grid-template-columns:1fr}
+  .stats-row{gap:1.5rem}.stat-n{font-size:1.6rem}
+  .hero-name{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Network canvas -->
+<canvas id="netCanvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">FA<span>.</span>Mangi</div>
+  <div class="nav-tabs">
+    <button class="nav-btn active" data-page="p-home">Home</button>
+    <button class="nav-btn" data-page="p-skills">Skills</button>
+    <button class="nav-btn" data-page="p-exp">Experience</button>
+    <button class="nav-btn" data-page="p-projects">Projects</button>
+    <button class="nav-btn" data-page="p-contact">Contact</button>
+  </div>
+</nav>
+
+<!-- ════ HOME ════ -->
+<section id="p-home" class="page active">
+  <div class="avail-pill"><span class="live-dot"></span> Available for opportunities</div>
+
+  <div class="photo-wrap">
+    <!-- Spinning SVG ring -->
+    <svg class="ring-outer" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:-7px;width:calc(100%+14px);height:calc(100%+14px)">
+      <defs>
+        <linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2563eb"/>
+          <stop offset="45%" stop-color="#22d3ee"/>
+          <stop offset="100%" stop-color="#2563eb" stop-opacity="0.05"/>
+        </linearGradient>
+      </defs>
+      <circle cx="77" cy="77" r="72" stroke="url(#rg1)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="220 228"/>
+    </svg>
+    <div class="photo-inner">
+      <img src="https://lh3.googleusercontent.com/a/ACg8ocKvIOZDUZjZ5HaG9ckIcPAkogZ8xN-g5Y7FMPRt3MFNBAlLrfhL=s192-c-mo" alt="Farhan Ali Mangi">
+    </div>
+  </div>
+
+  <h1 class="hero-name">Farhan Ali Mangi</h1>
+  <p class="hero-role">IT Support &amp; Infrastructure Professional &nbsp;·&nbsp; <b>Network &amp; Systems Admin</b></p>
+  <p class="hero-bio">3+ years building resilient IT infrastructure, toll automation, CCTV surveillance networks, and 60+ web platforms. Based in Karachi — delivering 24/7 reliable connectivity and smart systems.</p>
+
+  <div class="hero-cta">
+    <button class="btn-blue" onclick="showPage('p-contact')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Get in Touch
+    </button>
+    <button class="btn-ghost" onclick="showPage('p-exp')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      View Experience
+    </button>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-n" data-to="3" data-sfx="+">0+</div><div class="stat-l">Years Experience</div></div>
+    <div class="stat"><div class="stat-n" data-to="60" data-sfx="+">0+</div><div class="stat-l">Websites Managed</div></div>
+    <div class="stat"><div class="stat-n" data-to="264" data-sfx="+">0+</div><div class="stat-l">Cameras Deployed</div></div>
+    <div class="stat"><div class="stat-n" data-to="99" data-sfx="%">0%</div><div class="stat-l">System Uptime</div></div>
+  </div>
+</section>
+
+<!-- ════ SKILLS ════ -->
+<section id="p-skills" class="page">
+<div class="wrap" style="padding-top:2rem">
+  <p class="eyebrow">Technical Expertise</p>
+  <h2 class="s-title">Skills &amp; Competencies</h2>
+  <p class="s-sub">Full-stack IT professional — physical cabling and IP cameras to cloud servers and custom web systems.</p>
+  <div class="skill-grid">
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+      <div class="sk-n">Server Administration</div>
+      <div class="tags"><span class="tag">Windows Server</span><span class="tag">IIS</span><span class="tag">VPS</span><span class="tag">Active Directory</span><span class="tag">Backups</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="sk-n">LAN/WAN Networking</div>
+      <div class="tags"><span class="tag">LAN/WAN</span><span class="tag">POE Switch</span><span class="tag">Router Config</span><span class="tag">DSL/FTTH</span><span class="tag">Troubleshoot</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+      <div class="sk-n">CCTV &amp; Surveillance</div>
+      <div class="tags"><span class="tag">NVR Systems</span><span class="tag">264+ Cameras</span><span class="tag">Remote Access</span><span class="tag">Floor Planning</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg></div>
+      <div class="sk-n">Wi-Fi Connectivity 24/7</div>
+      <div class="tags"><span class="tag">AP Planning</span><span class="tag">ISP Mgmt</span><span class="tag">User Provision</span><span class="tag">24/7 Uptime</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="sk-n">Toll &amp; Weighbridge Systems</div>
+      <div class="tags"><span class="tag">Toll Automation</span><span class="tag">Weighbridge</span><span class="tag">C# .NET</span><span class="tag">SQL Server</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6A16 16 0 0 0 15.4 16.1l1.99-1.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <div class="sk-n">VoIP / PABX / Intercom</div>
+      <div class="tags"><span class="tag">PABX Setup</span><span class="tag">VoIP</span><span class="tag">Intercom</span><span class="tag">Extensions</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="sk-n">Web &amp; WordPress</div>
+      <div class="tags"><span class="tag">WordPress</span><span class="tag">PHP</span><span class="tag">Web Hosting</span><span class="tag">60+ Sites</span><span class="tag">VPS</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="sk-n">Cybersecurity</div>
+      <div class="tags"><span class="tag">Endpoint Security</span><span class="tag">Firewall</span><span class="tag">Access Control</span><span class="tag">Data Protection</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+      <div class="sk-n">ERP / POS Support</div>
+      <div class="tags"><span class="tag">ERP Systems</span><span class="tag">POS Install</span><span class="tag">SQL Server</span><span class="tag">User Training</span></div>
+    </div>
+
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="sk-n">End-User IT Support</div>
+      <div class="tags"><span class="tag">Hardware Support</span><span class="tag">OS Admin</span><span class="tag">Training</span><span class="tag">Helpdesk</span></div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ════ EXPERIENCE ════ -->
+<section id="p-exp" class="page">
+<div class="wrap" style="padding-top:2rem">
+  <p class="eyebrow">Work History</p>
+  <h2 class="s-title">Professional Experience</h2>
+  <p class="s-sub">3+ years of hands-on IT leadership across infrastructure, automation, surveillance, and web development.</p>
+  <div class="tl">
+
+    <div class="ti">
+      <div class="td"></div>
+      <div class="tc">
+        <div class="th2"><div class="tr">IT Executive</div><div class="tp">June 2023 – Present</div></div>
+        <div class="tco">🏢 LRC Pvt Ltd — Karachi, Pakistan</div>
+        <ul class="tul">
+          <li>Manage complete IT infrastructure: LAN/WAN, servers, hosting, and cloud solutions</li>
+          <li>Administer Windows Server environments — IIS, user access control, backups, endpoint security</li>
+          <li>Monitor and manage 36+ CCTV cameras and NVR systems with secure remote access</li>
+          <li>Support ERP/POS systems, PABX/intercom setups, IoT devices, DSL/FTTH connectivity</li>
+          <li>Coordinate with ISPs, vendors, and MEP teams for infrastructure upgrades and rollouts</li>
+          <li>Lead IT projects: system upgrades, server deployments, and new technology integrations</li>
+          <li>Train and support end-users on systems, troubleshooting, and best practices</li>
+        </ul>
+        <div style="margin-top:.6rem">
+          <span class="ach">🏆 Toll Automation — 99.9% reduction in processing time</span>
+          <span class="ach">⚖️ Weighbridge — 99.9% measurement accuracy</span>
+          <span class="ach">📹 CCTV Network — Zero-downtime remote monitoring</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ti">
+      <div class="td"></div>
+      <div class="tc">
+        <div class="th2"><div class="tr">WordPress Developer (Remote)</div><div class="tp">Aug 2022 – Nov 2024</div></div>
+        <div class="tco">🌐 KEVI Technologies — UAE</div>
+        <ul class="tul">
+          <li>Developed, customized, and optimized 60+ WordPress websites for UAE-based clients</li>
+          <li>Managed web hosting, VPS servers, and business email systems remotely</li>
+          <li>Handled plugin management, theme customization, and website performance optimization</li>
+          <li>Ensured consistent uptime and performance across all client websites</li>
+        </ul>
+        <span class="ach">🌍 60+ websites managed across UAE</span>
+      </div>
+    </div>
+
+    <div class="ti">
+      <div class="td"></div>
+      <div class="tc">
+        <div class="th2"><div class="tr">WordPress Developer (Internship)</div><div class="tp">Dec 2021 – Feb 2022</div></div>
+        <div class="tco">💼 Object Software House — Karachi, Pakistan</div>
+        <ul class="tul">
+          <li>Assisted in WordPress website development and deployment</li>
+          <li>Gained hands-on experience in web hosting and CMS management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+  <p class="eyebrow">Education</p>
+  <h3 class="s-title" style="font-size:1.5rem;margin-bottom:.4rem">Academic Background</h3>
+  <div class="skill-grid" style="margin-top:1.1rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div class="sk-n">BSc Information Technology</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:.3rem">University of Sindh, Jamshoro</div>
+      <div style="font-size:12px;color:var(--accent2);margin-top:.25rem;font-weight:800">2020 · First Division</div>
+    </div>
+    <div class="sk">
+      <div class="si"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="sk-n">Intermediate — Pre-Engineering</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:.3rem">Board of Intermediate Education, Sukkur</div>
+      <div style="font-size:12px;color:var(--accent2);margin-top:.25rem;font-weight:800">2016 · A Grade</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════ PROJECTS ════ -->
+<section id="p-projects" class="page">
+<div class="wrap" style="padding-top:2rem">
+  <p class="eyebrow">Key Projects</p>
+  <h2 class="s-title">Notable Work</h2>
+  <p class="s-sub">Real-world systems deployed in production — toll automation, CCTV site planning, web infrastructure and more.</p>
+
+  <!-- CCTV Feature -->
+  <div class="cctv-hero">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      CCTV Surveillance Infrastructure — Site Planning &amp; Remote Monitoring
+    </h3>
+    <p>Designed and deployed multi-site IP camera networks for LRC Pvt Ltd. Work spans initial site survey and floor plan preparation, camera placement and FOV planning, NVR configuration, cable routing, to remote access setup via port forwarding and secure VPN for 24/7 off-site monitoring.</p>
+  </div>
+
+  <div class="cctv-grid">
+    <div class="cc2">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <h4>Site Survey &amp; Planning</h4>
+      <p>On-site assessment of camera positions, blind spots, lighting, and cable routes before deployment</p>
+    </div>
+    <div class="cc2">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+      <h4>Floor Plan Preparation</h4>
+      <p>Creating detailed plans showing camera positions, angles, and cable pathways for full coverage</p>
+    </div>
+    <div class="cc2">
+      <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      <h4>Camera Installation</h4>
+      <p>Physical mounting, IP addressing, angle calibration, and NVR integration for 36+ cameras</p>
+    </div>
+    <div class="cc2">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <h4>Remote Monitoring</h4>
+      <p>Port forwarding, DDNS, and secure remote access for 24/7 monitoring from any location</p>
+    </div>
+  </div>
+
+  <!-- Floor Plan -->
+  <div class="fp">
+    <h3>Sample CCTV Placement — Floor Plan (LRC Site)</h3>
+    <svg style="width:100%;display:block" viewBox="0 0 640 310" xmlns="http://www.w3.org/2000/svg">
+      <rect x="28" y="28" width="584" height="254" rx="3" fill="none" stroke="rgba(96,165,250,0.18)" stroke-width="1.5"/>
+      <rect x="28" y="28" width="195" height="127" fill="rgba(37,99,235,0.05)" stroke="rgba(96,165,250,0.15)" stroke-width="1"/>
+      <rect x="223" y="28" width="185" height="127" fill="rgba(6,182,212,0.05)" stroke="rgba(96,165,250,0.15)" stroke-width="1"/>
+      <rect x="408" y="28" width="204" height="127" fill="rgba(37,99,235,0.05)" stroke="rgba(96,165,250,0.15)" stroke-width="1"/>
+      <rect x="28" y="155" width="380" height="127" fill="rgba(34,211,238,0.04)" stroke="rgba(96,165,250,0.15)" stroke-width="1"/>
+      <rect x="408" y="155" width="204" height="127" fill="rgba(37,99,235,0.04)" stroke="rgba(96,165,250,0.15)" stroke-width="1"/>
+      <text x="125" y="52" text-anchor="middle" fill="rgba(100,150,220,0.6)" font-size="10" font-family="Segoe UI,sans-serif">Server Room</text>
+      <text x="315" y="52" text-anchor="middle" fill="rgba(100,150,220,0.6)" font-size="10" font-family="Segoe UI,sans-serif">Office Area</text>
+      <text x="510" y="52" text-anchor="middle" fill="rgba(100,150,220,0.6)" font-size="10" font-family="Segoe UI,sans-serif">Toll Plaza Entry</text>
+      <text x="218" y="178" text-anchor="middle" fill="rgba(100,150,220,0.6)" font-size="10" font-family="Segoe UI,sans-serif">Parking / Open Area</text>
+      <text x="510" y="178" text-anchor="middle" fill="rgba(100,150,220,0.6)" font-size="10" font-family="Segoe UI,sans-serif">Weighbridge Zone</text>
+      <!-- cameras -->
+      <circle cx="44" cy="44" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="44" y1="44" x2="95" y2="85" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="44" y1="44" x2="85" y2="100" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <circle cx="213" cy="44" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="213" y1="44" x2="170" y2="80" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="213" y1="44" x2="175" y2="100" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <circle cx="315" cy="44" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="315" y1="44" x2="270" y2="88" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="315" y1="44" x2="360" y2="88" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <circle cx="596" cy="44" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="596" y1="44" x2="550" y2="88" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="596" y1="44" x2="558" y2="105" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <circle cx="44" cy="170" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="44" y1="170" x2="100" y2="210" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="44" y1="170" x2="92" y2="235" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <circle cx="220" cy="280" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="220" y1="280" x2="175" y2="245" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="220" y1="280" x2="265" y2="245" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <circle cx="596" cy="170" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="596" y1="170" x2="548" y2="210" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="596" y1="170" x2="542" y2="240" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <circle cx="510" cy="280" r="5.5" fill="#22d3ee" opacity=".95"/>
+      <line x1="510" y1="280" x2="466" y2="245" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <line x1="510" y1="280" x2="555" y2="245" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".45"/>
+      <!-- NVR -->
+      <rect x="95" y="82" width="62" height="28" rx="4" fill="rgba(37,99,235,0.22)" stroke="rgba(96,165,250,0.45)" stroke-width="1"/>
+      <text x="126" y="100" text-anchor="middle" fill="#60a5fa" font-size="9.5" font-family="Segoe UI,sans-serif" font-weight="700">NVR</text>
+      <line x1="44" y1="44" x2="95" y2="88" stroke="rgba(96,165,250,.2)" stroke-width="1"/>
+      <line x1="213" y1="44" x2="157" y2="88" stroke="rgba(96,165,250,.2)" stroke-width="1"/>
+      <!-- legend -->
+      <circle cx="40" cy="298" r="5" fill="#22d3ee"/>
+      <text x="52" y="302" fill="rgba(100,150,220,0.7)" font-size="9.5" font-family="Segoe UI,sans-serif">IP Camera</text>
+      <rect x="120" y="292" width="18" height="10" rx="2" fill="rgba(37,99,235,.28)" stroke="rgba(96,165,250,.4)" stroke-width="1"/>
+      <text x="144" y="302" fill="rgba(100,150,220,0.7)" font-size="9.5" font-family="Segoe UI,sans-serif">NVR</text>
+      <line x1="196" y1="297" x2="224" y2="297" stroke="#22d3ee" stroke-width="1" stroke-dasharray="5 3" opacity=".6"/>
+      <text x="230" y="302" fill="rgba(100,150,220,0.7)" font-size="9.5" font-family="Segoe UI,sans-serif">Camera FOV</text>
+    </svg>
+  </div>
+
+  <div class="hr"></div>
+  <div class="pg">
+    <div class="pc">
+      <div class="pi"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="pn">N5–M9 Toll Automation System</div>
+      <div class="pd">Complete toll management at LRC Link Road — 99.9% reduction in processing time across all cabins.</div>
+      <div class="pt"><span>C# .NET</span><span>SQL Server</span><span>Windows Server</span><span>Hardware Integration</span></div>
+    </div>
+    <div class="pc">
+      <div class="pi"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <div class="pn">Traffic Analytics Dashboard</div>
+      <div class="pd">PHP dark-themed dashboard with AJAX, WoW/MoM comparisons, Chart.js, and direction-based reports.</div>
+      <div class="pt"><span>PHP</span><span>SQL Server</span><span>Chart.js</span><span>AJAX</span></div>
+    </div>
+    <div class="pc">
+      <div class="pi"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="pn">Weighbridge Analytics System</div>
+      <div class="pd">Weighbridge dashboard with PDF export, direction mapping via Scale 1–4, and jsPDF integration.</div>
+      <div class="pt"><span>PHP</span><span>jsPDF</span><span>SQL Server</span><span>Chart.js</span></div>
+    </div>
+    <div class="pc">
+      <div class="pi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="pn">60+ WordPress Sites (KEVI UAE)</div>
+      <div class="pd">Remotely developed and maintained 60+ client websites — VPS, hosting, business email, and plugins.</div>
+      <div class="pt"><span>WordPress</span><span>VPS</span><span>PHP</span><span>cPanel</span></div>
+    </div>
+    <div class="pc">
+      <div class="pi"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg></div>
+      <div class="pn">LAN/WAN 24/7 Infrastructure</div>
+      <div class="pd">Enterprise wired/wireless network ensuring round-the-clock connectivity for toll plaza operations.</div>
+      <div class="pt"><span>LAN/WAN</span><span>POE Switch</span><span>DSL/FTTH</span><span>ISP Mgmt</span></div>
+    </div>
+    <div class="pc">
+      <div class="pi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="pn">IT Security &amp; Compliance</div>
+      <div class="pd">Cybersecurity protocols, endpoint protection, and access control across LRC's full digital infrastructure.</div>
+      <div class="pt"><span>Endpoint Security</span><span>Firewall</span><span>Access Control</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════ CONTACT ════ -->
+<section id="p-contact" class="page">
+<div class="wrap" style="padding-top:2rem">
+  <p class="eyebrow">Get In Touch</p>
+  <h2 class="s-title">Contact Me</h2>
+  <p class="s-sub">Open to IT support roles, infrastructure projects, network consulting, and remote web work.</p>
+  <div class="av-bar">
+    <span class="live-dot"></span>
+    <p><b>Currently available</b> — Full-time, part-time, or project-based IT work in Karachi or remote.</p>
+  </div>
+  <div class="cg">
+    <div class="ccard">
+      <div class="ci"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div><div class="cl">Email</div><div class="cv2"><a href="mailto:Farhanalee26@gmail.com">Farhanalee26@gmail.com</a></div></div>
+    </div>
+    <div class="ccard">
+      <div class="ci"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div><div class="cl">WhatsApp</div><div class="cv2"><a href="https://wa.me/923045466951" target="_blank">+92 304-5466951</a></div></div>
+    </div>
+    <div class="ccard">
+      <div class="ci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div><div class="cl">Location</div><div class="cv2">Gulistan-e-Johar, Karachi, Pakistan</div></div>
+    </div>
+    <div class="ccard">
+      <div class="ci"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+      <div><div class="cl">Current Role</div><div class="cv2">IT Executive @ LRC Pvt Ltd</div></div>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <p style="text-align:center;font-size:12.5px;color:var(--muted)">© 2025 Farhan Ali Mangi · IT Support &amp; Infrastructure Professional · Karachi, Pakistan</p>
+</div>
+</section>
+
+<script>
+/* ── NETWORK BACKGROUND ── */
+const cv = document.getElementById('netCanvas');
+const cx = cv.getContext('2d');
+let W, H, nodes = [], mouse = {x: -999, y: -999};
+
+function resize() {
+  W = cv.width = window.innerWidth;
+  H = cv.height = window.innerHeight;
+  nodes = Array.from({length: 55}, () => ({
+    x: Math.random() * W, y: Math.random() * H,
+    vx: (Math.random() - .5) * .55, vy: (Math.random() - .5) * .55,
+    r: Math.random() * 1.8 + .8,
+    o: Math.random() * .5 + .3
+  }));
+}
+
+function drawNet() {
+  cx.clearRect(0, 0, W, H);
+  const D = 150;
+
+  // connections
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < D) {
+        const alpha = (1 - dist/D) * .22;
+        cx.beginPath();
+        cx.moveTo(nodes[i].x, nodes[i].y);
+        cx.lineTo(nodes[j].x, nodes[j].y);
+        cx.strokeStyle = `rgba(96,165,250,${alpha})`;
+        cx.lineWidth = .8;
+        cx.stroke();
+      }
+    }
+  }
+
+  // mouse connections
+  nodes.forEach(n => {
+    const dx = n.x - mouse.x, dy = n.y - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 160) {
+      const alpha = (1 - dist/160) * .45;
+      cx.beginPath();
+      cx.moveTo(n.x, n.y);
+      cx.lineTo(mouse.x, mouse.y);
+      cx.strokeStyle = `rgba(34,211,238,${alpha})`;
+      cx.lineWidth = 1;
+      cx.stroke();
+    }
+  });
+
+  // nodes
+  nodes.forEach(n => {
+    n.x += n.vx; n.y += n.vy;
+    if (n.x < 0 || n.x > W) n.vx *= -1;
+    if (n.y < 0 || n.y > H) n.vy *= -1;
+    cx.beginPath();
+    cx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+    cx.fillStyle = `rgba(96,165,250,${n.o})`;
+    cx.fill();
+  });
+
+  requestAnimationFrame(drawNet);
+}
+
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+window.addEventListener('resize', resize);
+resize();
+drawNet();
+
+/* ── TAB NAVIGATION ── */
+const navEl = document.querySelector('nav');
+const sections = Array.from(document.querySelectorAll('.page'));
+
+function setActivePage(id) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if (b.getAttribute('data-page') === id) b.classList.add('active');
+  });
+}
+
+function showPage(id) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  setActivePage(id);
+  const navOffset = navEl.offsetHeight + 8;
+  const top = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+  window.scrollTo({ top, behavior: 'smooth' });
+  if (id === 'p-home') countUp();
+}
+
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => showPage(btn.getAttribute('data-page')));
+});
+
+function updateActiveFromScroll() {
+  const marker = window.pageYOffset + navEl.offsetHeight + 24;
+  let current = sections[0].id;
+  sections.forEach(section => {
+    if (marker >= section.offsetTop) current = section.id;
+  });
+  setActivePage(current);
+}
+
+window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
+updateActiveFromScroll();
+
+/* ── COUNTERS ── */
+function countUp() {
+  document.querySelectorAll('[data-to]').forEach(el => {
+    const target = +el.dataset.to, sfx = el.dataset.sfx || '';
+    let n = 0;
+    const iv = setInterval(() => {
+      n = Math.min(n + target/50, target);
+      el.textContent = Math.round(n) + sfx;
+      if (n >= target) clearInterval(iv);
+    }, 22);
+  });
+}
+countUp();
+</script>
+</body>
+</html>
